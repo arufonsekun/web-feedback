@@ -28,6 +28,7 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 // Routes autenticadas
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/lousas','LousaController@index')->name('lousas');
+    Route::post('/lousas','LousaController@store')->name('lousas');
     Route::get('/servicos/acompanhar','ServiceController@acompanhar')->name('servicos/acompanhar');
     Route::get('/servicos/solicitar','ServiceController@solicitar')->name('servicos/solicitar');
     Route::resource('/servico', 'ItemController')->except(['create', 'store','update']);

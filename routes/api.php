@@ -39,7 +39,7 @@ Route::group(['middleware'=>['apiJwt']],function(){
     
 });
     // ENPOINT LOUSAS
-    Route::apiResource('lousas', 'API\LousaController')->only(['index']);    
+    Route::apiResource('lousas', 'API\LousaController');//->only(['index']);    
 
 // ENDPOINTS FEEDBACK NOT SENSIVE
 Route::apiResource('feedbacks', 'API\FeedbackController')->only(['index']);

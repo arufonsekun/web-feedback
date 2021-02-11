@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
+use App\Whiteboard;
 use App\Item;
 use App\User;
 use App\Specification;
@@ -15,6 +16,14 @@ use App\Http\Resources\LousaResource;
 
 class LousaController extends Controller
 {
+    /**
+     *   Listar todos os whiteboards
+     */
+    public function index()
+    {
+        $whiteboards = Whiteboard::all();
+        return response($whiteboards);
+    }
 
 
     /**
@@ -27,15 +36,23 @@ class LousaController extends Controller
     {
         $data = $request->validate([
             'user_id' => 'required',
-            'location_id' => 'required',
-            'category_id' => 'required',
-            'title' => 'required',
-            'description' => 'required'
+            'hash' => 'required',
+            'data' => 'required',
+            'name' => 'required'
         ]);
 
-        $data['specification_id'] = $specification -> id;
+        $whiteboard = new Whiteboard;
 
+        $whiteboard->user_id = $data['user_id'];
+        $whiteboard->hash = $data['hash'];
+        $whiteboard->data = $data['data'];
+        $whiteboard->name = $data['name'];
 
+        $whiteboard->save();
+
+        return response(
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -43,6 +60,7 @@ class LousaController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * find($id)
      */
     public function show($id)
     {
